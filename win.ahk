@@ -4,3 +4,27 @@
 
 ; 将 Caps 按键映射到 Shift
 CapsLock::Shift
+
+; datetime input
+:*:]d::
+{
+    CurrentDateTime := FormatTime("", "yyyy-MM-dd")
+    SendInput(CurrentDateTime)
+}
+
+:*:]t::
+{
+    CurrentDateTime := FormatTime("", "yyyy-MM-dd HH:mm:ss")
+    SendInput(CurrentDateTime)
+}
+
+; quote input
+![::
+{
+    SendInput("「」{Left}")
+}
+    
+^![::
+{
+    SendInput("『』{Left}")
+}
