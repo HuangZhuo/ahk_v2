@@ -1,0 +1,9 @@
+{
+    "AHK++.v2.file": {
+        "compileBaseFile": "",
+        "helpPath": "C:\\ProgramData\\chocolatey\\lib\\autohotkey.portable\\tools\\AutoHotkey.chm",
+        "interpreterPath": "c:\\ProgramData\\chocolatey\\bin\\AutoHotkey.exe",
+        "maxScanDepth": 2,
+        "templateSnippetName": "AhkTemplateV2"
+    }
+}
