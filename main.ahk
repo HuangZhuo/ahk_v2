@@ -3,4 +3,4 @@
 
 #Include win.ahk
 #Include git_alias.ahk
-
+#Include obsidian.ahk
