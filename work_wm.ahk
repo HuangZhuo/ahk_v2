@@ -23,7 +23,6 @@ if NOT WinActive("ahk_exe Obsidian.exe") {
             ToolTip()
         }
     }
-    return
 
     ; 激活UI编辑器
     !u:: {

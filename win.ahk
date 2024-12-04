@@ -5,6 +5,12 @@
 ; 将 Caps 按键映射到 Shift
 CapsLock::Shift
 
+; 使用 Alt + Q 退出当前窗口
+!q::
+{
+    WinClose('A')
+}
+
 ; datetime input
 :*:]d::
 {
@@ -23,7 +29,7 @@ CapsLock::Shift
 {
     SendInput("「」{Left}")
 }
-    
+
 ^![::
 {
     SendInput("『』{Left}")
