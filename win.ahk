@@ -11,6 +11,12 @@ CapsLock::Shift
     WinClose('A')
 }
 
+; 鼠标中键映射到多任务
+MButton::
+{
+    Send("#{Tab}")
+}
+
 ; datetime input
 :*:]d::
 {
