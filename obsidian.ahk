@@ -14,3 +14,16 @@ if WinActive("ahk_exe Obsidian.exe") {
     :*o:]ex::> [{!}example] ` ;example
     :*o:]q::> [{!}quote] ` ;quote
 }
+
+; 通过 #o 打开 Obsidian
+#o:: {
+    if !WinExist("ahk_exe Obsidian.exe") {
+        Run('obsidian://open?vault=docs')
+        Sleep(1000)
+        WinActivate("ahk_exe Obsidian.exe")
+    } else if WinActive("ahk_exe Obsidian.exe") {
+        WinMinimize
+    } else {
+        WinActivate("ahk_exe Obsidian.exe")
+    }
+}

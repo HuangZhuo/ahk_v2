@@ -12,7 +12,7 @@ if NOT WinActive("ahk_exe Obsidian.exe") {
 
     ; 激活客户端窗口
     !c:: {
-        edge_client := "Cocos Creator - wm_diner - 个人 - Microsoft​ Edge"
+        edge_client := "Cocos Creator - client - 个人 - Microsoft​ Edge"
         if WinActive(edge_client) {
             WinMinimize
         } else if WinExist(edge_client) {
@@ -41,5 +41,5 @@ if NOT WinActive("ahk_exe Obsidian.exe") {
     ; }
 
     ; 打开钉钉/企业微信
-    !d::+!s
+    ; !d::+!s ;直接在应用中设置
 }

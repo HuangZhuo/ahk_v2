@@ -12,10 +12,14 @@ CapsLock::Shift
 }
 
 ; 鼠标中键映射到多任务
-MButton::
-{
-    Send("#{Tab}")
-}
+; MButton::
+; {
+;     Send("#{Tab}")
+; }
+
+; 适应 Mac 的键盘布局
+; LAlt::Ctrl
+; LWin::Alt
 
 ; datetime input
 :*:]d::
