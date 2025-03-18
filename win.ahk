@@ -44,3 +44,6 @@ CapsLock::Shift
 {
     SendInput("『』{Left}")
 }
+
+; POT 划词翻译
+#q::+^q
