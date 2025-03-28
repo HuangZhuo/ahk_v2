@@ -46,4 +46,10 @@ CapsLock::Shift
 }
 
 ; POT 划词翻译
-#q::+^q
+#q::+!q
+
+; RWIN for task manager
+RWin::
+{
+    Run("Taskmgr.exe")
+}

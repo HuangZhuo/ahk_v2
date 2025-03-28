@@ -9,9 +9,9 @@ if WinActive("ahk_exe Obsidian.exe") {
     ; :*o:]ti::> [{!}tip] ` ;tip
     :*o:]f::> [{!}faq] ` ;faq
     :*o:]w::> [{!}warning] ` ;warning
-    :*o:]er::> [{!}error] ` ;error
+    :*o:]e::> [{!}error] ` ;error
     :*o:]b::> [{!}bug] ` ;bug
-    :*o:]ex::> [{!}example] ` ;example
+    ; :*o:]ex::> [{!}example] ` ;example
     :*o:]q::> [{!}quote] ` ;quote
 }
 
