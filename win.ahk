@@ -8,7 +8,10 @@ CapsLock::Shift
 ; 使用 Alt + Q 退出当前窗口
 !q::
 {
-    WinClose('A')
+    ToolTip("又差点关闭窗口")
+    Sleep(1000)
+    ToolTip()
+    ; WinClose('A')
 }
 
 ; 鼠标中键映射到多任务

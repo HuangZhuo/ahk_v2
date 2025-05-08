@@ -8,16 +8,25 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
+; 定义一个 Tigger 函数
+Trigger(title) {
+    if WinActive(title) {
+        WinMinimize
+        return true
+    } else if WinExist(title) {
+        WinActivate
+        return true
+    } else {
+        return false
+    }
+}
+
 if NOT WinActive("ahk_exe Obsidian.exe") {
 
     ; 激活客户端窗口
     !c:: {
-        edge_client := "Cocos Creator - client - 个人 - Microsoft​ Edge"
-        if WinActive(edge_client) {
-            WinMinimize
-        } else if WinExist(edge_client) {
-            WinActivate
-        } else {
+        edge_client := "Cocos Creator - client"
+        if !Trigger(edge_client) {
             ToolTip("没有运行的客户端")
             Sleep(1000)
             ToolTip()
@@ -27,11 +36,19 @@ if NOT WinActive("ahk_exe Obsidian.exe") {
     ; 激活UI编辑器
     !u:: {
         cocos := "ahk_exe CocosCreator.exe"
-        if WinActive(cocos) {
-            WinMinimize
-        } else if (WinExist(cocos)) {
-            WinActivate
-        }
+        Trigger(cocos)
+    }
+
+    ; 激活 VS Code
+    !x:: {
+        code := "ahk_exe code.exe"
+        Trigger(code)
+    }
+
+    ; 激活 Trae
+    !v:: {
+        trae := "ahk_exe Trae CN.exe"
+        Trigger(trae)
     }
 
     ; 打开微信
