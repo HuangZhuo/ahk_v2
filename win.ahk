@@ -51,6 +51,14 @@ CapsLock::Shift
 ; POT 划词翻译
 #q::+!q
 
+; Terminal
+terminal := "ahk_exe WindowsTerminal.exe"
+#T:: {
+    if (!Trigger(terminal)) {
+        WinActivate(terminal)
+    }
+}
+
 ; RWIN for task manager
 RWin::
 {

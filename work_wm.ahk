@@ -7,19 +7,7 @@
 
 #Requires AutoHotkey v2.0
 #SingleInstance Force
-
-; 定义一个 Tigger 函数
-Trigger(title) {
-    if WinActive(title) {
-        WinMinimize
-        return true
-    } else if WinExist(title) {
-        WinActivate
-        return true
-    } else {
-        return false
-    }
-}
+#include common.ahk
 
 if NOT WinActive("ahk_exe Obsidian.exe") {
 

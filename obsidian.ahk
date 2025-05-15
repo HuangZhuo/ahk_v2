@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
+#Include common.ahk
 
-if WinActive("ahk_exe Obsidian.exe") {
+obsidian := "ahk_exe Obsidian.exe"
+
+if WinActive(obsidian) {
     ; obsidian callouts
     :*o:]n::> [{!}note] ` ;note
     ; :*o:]tl::> [{!}tldr] ` ;tldr
@@ -17,13 +20,9 @@ if WinActive("ahk_exe Obsidian.exe") {
 
 ; 通过 #o 打开 Obsidian
 #o:: {
-    if !WinExist("ahk_exe Obsidian.exe") {
+    if (!Trigger(obsidian)) {
         Run('obsidian://open?vault=docs')
         Sleep(1000)
-        WinActivate("ahk_exe Obsidian.exe")
-    } else if WinActive("ahk_exe Obsidian.exe") {
-        WinMinimize
-    } else {
-        WinActivate("ahk_exe Obsidian.exe")
+        WinActivate(obsidian)
     }
 }
