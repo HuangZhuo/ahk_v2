@@ -7,7 +7,7 @@
 
 #Requires AutoHotkey v2.0
 #SingleInstance Force
-#include common.ahk
+#include src/common.ahk
 
 if NOT WinActive("ahk_exe Obsidian.exe") {
 
