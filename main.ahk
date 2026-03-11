@@ -4,3 +4,4 @@
 #Include win.ahk
 #Include git_alias.ahk
 #Include obsidian.ahk
+#Include src/aero_peek.ahk
