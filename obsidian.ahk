@@ -23,6 +23,6 @@ if WinActive(obsidian) {
     if (!Trigger(obsidian)) {
         Run('obsidian://open?vault=docs')
         Sleep(1000)
-        WinActivate(obsidian)
+        WinExist(obsidian) && WinActivate(obsidian)
     }
 }
