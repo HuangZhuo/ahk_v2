@@ -25,16 +25,26 @@ CheckMouseCorner() {
         CurrentTime := A_TickCount
         ; 确保鼠标在角落停留足够时间才触发
         if (CurrentTime - LastCornerTime >= DelayTime) {
-            Send("#d")  ; Win + D 显示桌面
+            Peek(1)
             IsShowingDesktop := true
         }
     }
     else if (!InCorner && IsShowingDesktop) {
-        Send("#d")  ; Win + D 恢复窗口
+        Peek(0)
         IsShowingDesktop := false
         LastCornerTime := A_TickCount
     }
     else if (InCorner) {
         LastCornerTime := A_TickCount
     }
+}
+
+; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=15189&p=78662#p78662
+Peek(on) {
+    static dwmapi := 0, dwmpeek
+    if !dwmapi {
+        dwmapi := DllCall("LoadLibrary", "str", "dwmapi.dll", "ptr")
+        dwmpeek := DllCall("GetProcAddress", "ptr", dwmapi, "ptr", 113, "ptr")
+    }
+    DllCall(dwmpeek, "int", on, "ptr", 0, "ptr", 0, "uint", 1, "ptr", 0)
 }
