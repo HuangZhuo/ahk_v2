@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0
 
-; 鼠标移到桌面右下角预览桌面
-; 设置右下角的触发区域（像素）
+; Trigger zone size at the bottom-right corner (in pixels)
 CornerSize := 20
-; 设置延迟时间，避免误触发
+; Delay to avoid accidental triggers (milliseconds)
 DelayTime := 200
 
-; 监测鼠标位置
+; Always use absolute screen coordinates for corner hit-testing.
+CoordMode("Mouse", "Screen")
 SetTimer(CheckMouseCorner, 100)
 
 CheckMouseCorner() {
@@ -18,12 +18,10 @@ CheckMouseCorner() {
     ScreenWidth := A_ScreenWidth
     ScreenHeight := A_ScreenHeight
 
-    ; 检查鼠标是否在右下角
     InCorner := (MouseX >= ScreenWidth - CornerSize) && (MouseY >= ScreenHeight - CornerSize)
 
     if (InCorner && !IsShowingDesktop) {
         CurrentTime := A_TickCount
-        ; 确保鼠标在角落停留足够时间才触发
         if (CurrentTime - LastCornerTime >= DelayTime) {
             Peek(1)
             IsShowingDesktop := true
@@ -39,12 +37,57 @@ CheckMouseCorner() {
     }
 }
 
-; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=15189&p=78662#p78662
 Peek(on) {
-    static dwmapi := 0, dwmpeek
-    if !dwmapi {
-        dwmapi := DllCall("LoadLibrary", "str", "dwmapi.dll", "ptr")
-        dwmpeek := DllCall("GetProcAddress", "ptr", dwmapi, "ptr", 113, "ptr")
+    static ActiveMode := ""
+
+    if (on) {
+        if DwmPeek(1) {
+            ActiveMode := "dwm"
+            return
+        }
+
+        WinMinimizeAll()
+        ActiveMode := "minall"
+        return
     }
-    DllCall(dwmpeek, "int", on, "ptr", 0, "ptr", 0, "uint", 1, "ptr", 0)
+
+    if (ActiveMode = "dwm") {
+        if !DwmPeek(0) {
+            WinMinimizeAllUndo()
+        }
+    }
+    else if (ActiveMode = "minall") {
+        WinMinimizeAllUndo()
+    }
+
+    ActiveMode := ""
+}
+
+DwmPeek(on) {
+    static Inited := false
+    static Fn := 0
+
+    if !Inited {
+        hDwm := DllCall("GetModuleHandle", "str", "dwmapi.dll", "ptr")
+        if !hDwm {
+            hDwm := DllCall("LoadLibrary", "str", "dwmapi.dll", "ptr")
+        }
+
+        if hDwm {
+            ; Prefer name lookup first, then fallback to ordinal 113 from old forum snippets.
+            Fn := DllCall("GetProcAddress", "ptr", hDwm, "astr", "DwmpActivateLivePreview", "ptr")
+            if !Fn {
+                Fn := DllCall("GetProcAddress", "ptr", hDwm, "ptr", 113, "ptr")
+            }
+        }
+        Inited := true
+    }
+
+    if !Fn {
+        return false
+    }
+
+    ; HRESULT: non-negative means success.
+    hr := DllCall(Fn, "int", on ? 1 : 0, "ptr", 0, "ptr", 0, "uint", 1, "ptr", 0, "int")
+    return (hr >= 0)
 }
