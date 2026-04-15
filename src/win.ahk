@@ -92,3 +92,30 @@ RWin::
 {
     Run("Taskmgr.exe")
 }
+
+; ScrollLock toggle active window always on top
+ScrollLock::
+{
+    ToggleAlwaysOnTop()
+}
+
+ToggleAlwaysOnTop() {
+    activeHwnd := WinExist("A")
+    if !activeHwnd {
+        return
+    }
+
+    isTopMost := (WinGetExStyle("ahk_id " activeHwnd) & 0x8) != 0
+    WinSetAlwaysOnTop(!isTopMost, "ahk_id " activeHwnd)
+
+    if isTopMost {
+        ToolTip("窗口取消置顶")
+    } else {
+        ToolTip("窗口已置顶")
+    }
+    SetTimer(ClearToggleTip, -800)
+}
+
+ClearToggleTip() {
+    ToolTip()
+}
